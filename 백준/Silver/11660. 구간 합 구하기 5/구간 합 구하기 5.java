@@ -13,26 +13,26 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
-		int range[][] = new int[N][N];
-		int total[][] = new int[N+1][N+1];
+		int basicArr[][] = new int[N][N];
+		int sumArr[][] = new int[N+1][N+1];
 		for(int i=0; i<N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j=0; j<N; j++) {
-				range[i][j] = Integer.parseInt(st.nextToken());
+				basicArr[i][j] = Integer.parseInt(st.nextToken()); 
 			}
 		}
 		for(int i=1; i<=N; i++) {
 			for(int j=1; j<=N; j++) {
-				total[i][j] = total[i][j-1] + total[i-1][j] -total[i-1][j-1] + range[i-1][j-1]; 
+				sumArr[i][j] = sumArr[i][j-1] + sumArr[i-1][j] - sumArr[i-1][j-1] + basicArr[i-1][j-1];
 			}
 		}
-		for(int i=1; i<=M; i++) {
+		for(int i=0; i<M; i++) {
 			st = new StringTokenizer(br.readLine());
 			int startX = Integer.parseInt(st.nextToken());
 			int startY = Integer.parseInt(st.nextToken());
 			int endX = Integer.parseInt(st.nextToken());
 			int endY = Integer.parseInt(st.nextToken());
-			bw.write(total[endX][endY]-total[endX][startY-1]-total[startX-1][endY]+total[startX-1][startY-1]+"\n");
+			bw.write(sumArr[endX][endY] - sumArr[endX][startY-1]-sumArr[startX-1][endY]+sumArr[startX-1][startY-1] +"\n");
 		}
 		bw.flush();
 	}
