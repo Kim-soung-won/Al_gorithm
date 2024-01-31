@@ -14,6 +14,7 @@ public class Main {
     static ArrayList<Node>[] arr;
     static boolean[] visited;
     static int[] len;
+    static int ll;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -36,7 +37,7 @@ public class Main {
                 arr[a].add(new Node(k,p));
             }
         }
-        BFS(1);
+        DFS(1,0);
         int Max = 1;
         for(int i=2; i<=N; i++){
             if(len[Max] < len[i])
@@ -44,24 +45,19 @@ public class Main {
         }
         len = new int[N+1];
         visited = new boolean[N+1];
-        BFS(Max);
+        DFS(Max,0);
         Arrays.sort(len);
         System.out.println(len[N]);
 
     }
-    static void BFS(int index){
-        Queue<Integer> queue = new LinkedList<>();
+    static void DFS(int index, int length){
+        len[index] = length;
         visited[index] = true;
-        queue.add(index);
-        len[index] = 0;
-        while(!queue.isEmpty()){
-            index = queue.poll();
-            for(Node node : arr[index]){
-                if(!visited[node.target]) {
-                    visited[node.target] = true;
-                    queue.add(node.target);
-                    len[node.target] = len[index] + node.len;
-                }
+        for(Node node : arr[index]){
+            if(!visited[node.target]) {
+                DFS(node.target, length + node.len);
+                if(len[ll] < len[node.target])
+                    ll = node.target;
             }
         }
     }
