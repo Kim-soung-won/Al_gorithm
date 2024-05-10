@@ -1,8 +1,7 @@
 def solution(t, p):
     answer = 0
-    arr = list(t)
     for i in range(len(t)-len(p)+1):
-        if int(p) >= int("".join(arr[i:len(p)+i])):
-            print(int("".join(arr[i:len(p)+i])))
+        if int(p) >= int(t[i:len(p)+i]):
+            print(int(t[i:len(p)+i]))
             answer += 1
     return answer
