@@ -1,25 +1,28 @@
 def solution(s):
     answer: int = 0
-    first: dict = {}
-    start: str = ''
-    el: str = 'else'
-    for i in s:
-        if not first:
-            start = i
-            first[start] = 1
-            print("start : ", first[start], "spell : ", i)
-            continue
-        if start == i:
-            first[start] += 1
-            print("start : ", first[start])
-            continue
-        if start != i:
-            if el not in first:
-                first[el] = 0
-            first[el] += 1
-        if first[el] == first[start]:
-            first: dict = {}
-            answer +=1
-    if first:
+    alpha: dict = {}
+    maxi = 0
+    for index, i in enumerate(s):
+        if i not in alpha:
+            alpha[i] = 1
+            if maxi == 0:
+                maxi = 1
+            elif maxi == 1:
+                print("index: ", index,"key: ",i, "alpha[i] : ",alpha[i],"  maxi : ",maxi)
+                maxi = 0
+                alpha: dict = {}
+                answer += 1
+        else:
+            alpha[i] += 1
+            if alpha[i] == maxi:
+                print("index: ", index,"key: ",i, "alpha[i] : ",alpha[i],"  maxi : ",maxi)
+                alpha: dict = {}
+                maxi = 0
+                answer += 1
+                continue
+            if maxi < alpha[i]:
+                maxi = alpha[i]
+    if maxi != 0:
         answer += 1
+        
     return answer
